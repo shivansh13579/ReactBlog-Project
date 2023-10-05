@@ -17,12 +17,38 @@ export class AuthService{
          const userAccount = await this.account.create(ID.unique(),email,password,name);
          if(userAccount){
           //Todo
+          return this.login({email,password})
          }else{
           return userAccount;
          }
         } catch (error) {
           throw error;
         }
+   }
+
+   async login({email,password}){
+    try {
+     return await this.account.createEmailSession(email,password)
+    } catch (error) {
+      throw error
+    }
+   }
+
+   async getCurrentUser(){
+    try {
+      return await this.account.get();
+    } catch (error) {
+      console.log("Appwrite server :: getCurrentUser :: error",error);
+    }
+    return null;
+   }
+
+   async logout(){
+    try {
+      await this.account.deleteSessions();
+    } catch (error) {
+      console.log("Appwrite server :: logout :: error",error);
+    }
    }
 }
 
