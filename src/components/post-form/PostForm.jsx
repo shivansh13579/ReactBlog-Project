@@ -28,14 +28,61 @@ function PostForm({post}) {
             const dbPost = await appwriteService.updatePost(post.$id,{
                 ...data,
                 featuredImage: file ? file.$id : undefined
-            });
+            })
+            if(dbPost){
+              navigate(`/post/${dbPost.$id}`)
+            }
+         }else{
+          const file = await appwriteService.uploadFile(data.image[0])
 
+          if(file){
+            const fileId = file.$id
+            data.featuredImage = fileId
+           const dbPost = await appwriteService.createPost({
+              ...data,
+              userId: useData.$id,
+            })
+            if(dbPost){
+              navigate(`/post/${dbPost.$id}`)
+            }
+          }
          }
     }
-  return (
-    <div>
+
+    const slugTransform = useCallback((value)=>{
+             if(value && typeof value === 'string')
+             return value
+            .trim()
+            .toLowerCase()
+            .replace(/\s/g,'-')
+
+            return ''
+    },[])
+
+    React.useEffect(()=>{
+      const subscription = watch((value,{name})=>{
+        if(name === 'title'){
+          setValue('slug',slugTransform(value.title,{shouldValidate: true}))
+        }
+      })
       
-    </div>
+      return () => {
+        subscription.unsubscribe()
+      }
+    },[watch,slugTransform,setValue])
+  return (
+      <form onSubmit={handleSubmit(submit)} className='flex flex-wrap'>
+      <div className='w-2/3 px-2'>
+      <Input
+        label="Title: "
+        placeholder="Title"
+        className='mb-4'
+        {...register("title",{required: true})}
+      />
+
+      </div>
+
+      </form>
   )
 }
 
