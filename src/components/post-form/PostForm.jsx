@@ -79,6 +79,25 @@ function PostForm({post}) {
         className='mb-4'
         {...register("title",{required: true})}
       />
+      <Input
+        label="slug: "
+        placeholder='slug'
+        className='mb-4'
+        {...register("slug",{required: true})}
+        onInput={(e)=>{
+          setValue("slug",slugTransform(e.currentTarget.value),{shouldValidate:true});
+        }}
+      />
+      <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")}/>
+      </div>
+      <div className='w-1/3 px-2'>
+      <Input
+        label="Featured Image :"
+        type='file'
+        className='mb-4'
+        accept="image/png,image/jpg,image/jpeg,image/gif"
+        {...register("image",{required: !post})}
+      />
 
       </div>
 
