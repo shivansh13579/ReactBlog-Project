@@ -98,6 +98,29 @@ function PostForm({post}) {
         accept="image/png,image/jpg,image/jpeg,image/gif"
         {...register("image",{required: !post})}
       />
+      {post && (
+        <div className='w-full mb-4'>
+        <img 
+          src={appwriteService.getFilePreview(post.featuredImage)}
+          alt={post.title}
+          className='runded-lg'
+        />
+        </div>
+      )}
+
+      <select
+        options={["active","inactive"]}
+        label="Status"
+        className='mb-4'
+        {...register("status",{required:true})}
+      />
+      <Button
+        type="submit"
+        bgColor={post ? "bg-green-500" : undefined}
+        className='w-full'
+      >
+        {post ? "Update" : "Submit"}
+      </Button>
 
       </div>
 
@@ -105,4 +128,4 @@ function PostForm({post}) {
   )
 }
 
-export default PostForm
+export default PostForm;

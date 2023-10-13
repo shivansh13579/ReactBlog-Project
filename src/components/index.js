@@ -5,6 +5,11 @@ import Logo from "./Logo";
 import LogoutBtn from "./Header/LogoutBtn";
 import Select from "./Select";
 import RTE from "./RTE";
+import Signup from "./Signup";
+import Login from "./Login";
+import PostForm from "./post-form/PostForm";
+import PostCard from "./postCard";
+
 
 export {
     Header,
@@ -14,5 +19,8 @@ export {
     LogoutBtn,
     Select,
     RTE,
-    
+    Signup,
+    Login,
+    PostForm,
+    PostCard,
 }
