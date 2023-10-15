@@ -62,4 +62,4 @@ function Post() {
   ):null
 }
 
-export default Post
+export default Post;
