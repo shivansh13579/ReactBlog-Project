@@ -9,6 +9,9 @@ import Home from "./pages/Home.jsx";
 import { AuthLayout, Login } from './components/index.js'
 import Signup from "./pages/Signup.jsx";
 import AddPost from './pages/AddPost.jsx'
+import EditPost from './pages/EditPost.jsx'
+import Post from './pages/Post.jsx';
+import AllPosts from './pages/AllPosts.jsx'
 
 
 
@@ -47,11 +50,29 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/",
+        path: "/add-post",
         element: (
           <AuthLayout authentication>
-          {''}
+              {''}
             <AddPost/>
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/edit-post/:slug",
+        element: (
+          <AuthLayout authentication>
+              {''}
+            <EditPost />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/post/:slug",
+        element: (
+          <AuthLayout authentication>
+              {''}
+            <Post/>
           </AuthLayout>
         ),
       },
@@ -64,7 +85,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <RouterProvider router={router}/>
    </Provider>
   </React.StrictMode>,
 )
